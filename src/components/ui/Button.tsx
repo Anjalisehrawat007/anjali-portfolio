@@ -5,15 +5,16 @@ import type { ComponentProps, MouseEvent, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { usePrefersReducedMotion } from "@/lib/hooks";
 
-type Variant = "primary" | "secondary" | "ghost" | "outline";
+type Variant = "primary" | "secondary" | "ghost" | "outline" | "accent";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition-[background-color,color,border-color,transform,box-shadow] duration-200 select-none disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+  "btn-icon-shift group inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition-[background-color,color,border-color,transform,box-shadow] duration-200 select-none disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg active:scale-[0.98]";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-fg text-bg hover:bg-fg/90",
-  secondary: "bg-surface text-fg border border-border hover:border-border-strong hover:bg-surface-2",
+  primary: "bg-fg text-bg shadow-[0_1px_0_rgba(255,255,255,0.12)_inset,0_8px_20px_-12px_rgba(0,0,0,0.5)] hover:bg-fg/92 hover:shadow-[0_1px_0_rgba(255,255,255,0.12)_inset,0_12px_28px_-12px_rgba(0,0,0,0.55)]",
+  accent: "bg-accent text-accent-fg shadow-[0_8px_24px_-12px_var(--accent)] hover:bg-accent-strong",
+  secondary: "bg-surface text-fg border border-border shadow-card-sm hover:border-border-strong hover:bg-surface-2",
   outline: "bg-transparent text-fg border border-border-strong hover:bg-surface-2",
   ghost: "bg-transparent text-fg-2 hover:text-fg hover:bg-surface-2",
 };
@@ -21,7 +22,7 @@ const variants: Record<Variant, string> = {
 const sizes: Record<Size, string> = {
   sm: "h-8 px-3 text-[13px]",
   md: "h-10 px-4 text-sm",
-  lg: "h-11 px-5 text-[15px]",
+  lg: "h-12 px-6 text-[15px]",
 };
 
 interface CommonProps {

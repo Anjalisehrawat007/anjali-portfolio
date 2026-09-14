@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 export function ResumeViewer({ className }: { className?: string }) {
   const [loaded, setLoaded] = useState(false);
   return (
-    <div className={cn("overflow-hidden rounded-2xl border border-border bg-surface", className)}>
+    <div className={cn("card overflow-hidden rounded-2xl shadow-card-lg", className)}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-2.5">
         <span className="flex items-center gap-2 text-sm font-medium text-fg"><FileText className="h-4 w-4 text-muted" /> {profile.resumeFileName}</span>
         <div className="flex gap-2">

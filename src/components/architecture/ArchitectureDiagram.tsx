@@ -79,15 +79,16 @@ export function ArchitectureDiagram({ architecture, title, className, initialSel
 
   return (
     <div className={cn("grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start", className)}>
-      <div className="rounded-2xl border border-border bg-surface-2/40 p-4 sm:p-6">
+      <div className="canvas relative overflow-hidden rounded-2xl p-4 sm:p-6">
+        <div className="bg-spot pointer-events-none absolute inset-0 opacity-60" aria-hidden />
         {/* Toolbar */}
         <div className="mb-4 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-muted">
-            <span className="hidden sm:inline">System diagram</span>
-            <span className="rounded bg-surface px-1.5 py-0.5 text-fg-2">{architecture.nodes.length} components</span>
-            <span className="rounded bg-surface px-1.5 py-0.5 text-fg-2">{architecture.edges.length} flows</span>
+          <div className="relative flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
+            <span className="hidden whitespace-nowrap xl:inline">System diagram</span>
+            <span className="whitespace-nowrap rounded-md border border-border bg-surface px-1.5 py-0.5 text-fg-2">{architecture.nodes.length} components</span>
+            <span className="whitespace-nowrap rounded-md border border-border bg-surface px-1.5 py-0.5 text-fg-2">{architecture.edges.length} flows</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="relative flex items-center gap-1">
             <button
               type="button"
               onClick={() => setPlaying((p) => !p)}
@@ -118,12 +119,13 @@ export function ArchitectureDiagram({ architecture, title, className, initialSel
           aria-label={`${title} architecture: ${architecture.summary}`}
           className="relative"
         >
+          <div className="pointer-events-none absolute bottom-0 left-[39px] top-0 hidden w-px bg-gradient-to-b from-transparent via-border-strong to-transparent sm:block" aria-hidden />
           <FlowEdges geometry={geometry} edges={architecture.edges} size={size} activeId={activeId} animate={animate} />
           <ol className="relative z-10 flex flex-col gap-12 sm:gap-14">
             {stages.map((stage, i) => (
               <li key={stage.label} className="relative sm:pl-24">
                 <div className="mb-2 flex items-center gap-2 sm:absolute sm:left-0 sm:top-1/2 sm:mb-0 sm:w-20 sm:-translate-y-1/2 sm:flex-col sm:items-end sm:gap-0.5">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-muted">0{i + 1}</span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent/80">0{i + 1}</span>
                   <span className="text-[11px] font-medium text-fg-2 sm:text-right">{stage.label}</span>
                 </div>
                 <div className="flex flex-wrap justify-center gap-3">

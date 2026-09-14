@@ -6,7 +6,8 @@ import { featuredProjects } from "@/data/projects";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
+    <footer className="relative bg-bg-2">
+      <div className="divider absolute inset-x-0 top-0" aria-hidden />
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2.5 font-semibold tracking-tight">

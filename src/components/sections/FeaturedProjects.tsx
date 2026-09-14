@@ -3,7 +3,7 @@ import { ProjectExplorer } from "@/components/projects/ProjectExplorer";
 
 export function FeaturedProjects() {
   return (
-    <Section id="projects">
+    <Section id="projects" atmosphere="grid">
       <SectionHeading
         eyebrow="Featured projects"
         title="Product → Engineering → Proof"

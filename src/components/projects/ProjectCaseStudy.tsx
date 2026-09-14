@@ -6,6 +6,7 @@ import { Github } from "@/components/ui/BrandIcons";
 import type { Project } from "@/lib/types";
 import { featuredProjects } from "@/data/projects";
 import { formatPeriod, cn } from "@/lib/utils";
+import { toneVars } from "@/lib/tones";
 import { useActiveSection } from "@/lib/hooks";
 import { Badge, StatusPill } from "@/components/ui/Badge";
 import { MetricCard } from "@/components/ui/MetricCard";
@@ -38,9 +39,14 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
   const extra = projectExtras[project.slug];
 
   return (
-    <article className="mx-auto w-full max-w-6xl px-5 pb-24 pt-24 sm:px-8 sm:pt-28">
+    <article className="relative mx-auto w-full max-w-6xl px-5 pb-24 pt-28 sm:px-8 sm:pt-32" style={toneVars(project.slug) as React.CSSProperties}>
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px]" aria-hidden>
+        <div className="mask-fade-b absolute inset-0" style={{ background: "radial-gradient(55% 60% at 20% 0%, var(--tone-glow), transparent 70%), radial-gradient(40% 50% at 90% 10%, var(--glow-2), transparent 70%)" }} />
+        <div className="bg-grid mask-fade-b absolute inset-0 opacity-70" />
+      </div>
       {/* Header */}
-      <header className="border-b border-border pb-10">
+      <header className="relative pb-12">
+        <div className="divider absolute inset-x-0 bottom-0" aria-hidden />
         <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-sm text-muted">
           <Link href="/#projects" className="inline-flex items-center gap-1 hover:text-fg"><ArrowLeft className="h-3.5 w-3.5" /> Projects</Link>
           <span aria-hidden>/</span>
@@ -51,7 +57,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           <span className="font-mono text-[11px] text-muted">{formatPeriod(project.period)}</span>
           {project.categories.map((c) => <Badge key={c} tone="mono">{c}</Badge>)}
         </div>
-        <h1 className="mt-4 max-w-4xl text-3xl font-semibold leading-tight tracking-tight text-fg sm:text-5xl">{project.name}</h1>
+        <h1 className="mt-5 max-w-4xl text-3xl font-semibold leading-[1.08] tracking-[-0.035em] text-fg sm:text-[3.5rem]">{project.name}</h1>
         <p className="mt-4 max-w-2xl text-base text-muted sm:text-lg">{project.tagline}</p>
         <div className="mt-6 flex flex-wrap gap-1.5">{project.technologies.map((t) => <Badge key={t}>{t}</Badge>)}</div>
         <ProjectLinks project={project} size="md" showCaseStudy={false} className="mt-6" />
@@ -123,7 +129,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
               {project.technologies.map((t) => {
                 const nodes = project.architecture.nodes.filter((n) => n.tech.includes(t));
                 return (
-                  <li key={t} className="rounded-xl border border-border bg-surface px-4 py-3">
+                  <li key={t} className="card card-hover rounded-xl px-4 py-3">
                     <div className="text-sm font-semibold text-fg">{t}</div>
                     <div className="mt-0.5 text-xs text-muted">{nodes.length ? `Used in: ${nodes.map((n) => n.label).join(", ")}` : "Listed for this project"}</div>
                   </li>
@@ -137,8 +143,8 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
             {project.challenges.length ? (
               <ul className="space-y-2.5">
                 {project.challenges.map((c) => (
-                  <li key={c} className="flex gap-3 rounded-xl border border-border bg-surface px-4 py-3 text-sm leading-relaxed text-fg-2">
-                    <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden />{c}
+                  <li key={c} className="card flex gap-3 rounded-xl px-4 py-3 text-sm leading-relaxed text-fg-2">
+                    <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--tone)]" aria-hidden />{c}
                   </li>
                 ))}
               </ul>
@@ -201,11 +207,11 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
           {/* Prev / next */}
           <nav aria-label="More projects" className="grid gap-3 border-t border-border pt-8 sm:grid-cols-2">
-            <Link href={`/projects/${prev.slug}`} className="group rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-border-strong">
+            <Link href={`/projects/${prev.slug}`} className="card card-hover group rounded-2xl p-5">
               <span className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-muted"><ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-0.5" /> Previous</span>
               <span className="mt-1 block text-base font-semibold text-fg">{prev.shortName}</span>
             </Link>
-            <Link href={`/projects/${next.slug}`} className="group rounded-2xl border border-border bg-surface p-5 text-right transition-colors hover:border-border-strong">
+            <Link href={`/projects/${next.slug}`} className="card card-hover group rounded-2xl p-5 text-right">
               <span className="flex items-center justify-end gap-1 font-mono text-[11px] uppercase tracking-wider text-muted">Next <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" /></span>
               <span className="mt-1 block text-base font-semibold text-fg">{next.shortName}</span>
             </Link>
@@ -220,7 +226,7 @@ function CaseSection({ id, title, children, wide }: { id: string; title: string;
   return (
     <Reveal as="section" className={cn("scroll-mt-24", !wide && "max-w-3xl")}>
       <div id={id} className="scroll-mt-24">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-fg sm:text-2xl">{title}</h2>
+        <h2 className="mb-5 inline-flex items-center gap-3 text-xl font-semibold tracking-tight text-fg sm:text-2xl"><span className="h-px w-5 bg-[var(--tone)]" aria-hidden />{title}</h2>
         {children}
       </div>
     </Reveal>

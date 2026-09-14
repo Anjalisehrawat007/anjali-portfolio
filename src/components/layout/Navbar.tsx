@@ -49,7 +49,7 @@ export function Navbar() {
         className={cn(
           "border-b transition-[background-color,border-color,backdrop-filter,height] duration-300",
           scrolled || open || !isHome
-            ? "border-border bg-bg/85 backdrop-blur-md supports-[backdrop-filter]:bg-bg/70"
+            ? "border-border/70 bg-bg/80 shadow-[0_1px_0_0_var(--border)] backdrop-blur-xl supports-[backdrop-filter]:bg-bg/65"
             : "border-transparent bg-transparent",
         )}
       >
@@ -106,7 +106,7 @@ export function Navbar() {
             <Link
               href="/resume"
               className={cn(
-                "hidden h-8 items-center gap-1.5 rounded-full bg-fg px-3.5 text-[13px] font-medium text-bg transition-colors hover:bg-fg/90 md:inline-flex",
+                "btn-icon-shift hidden h-8 items-center gap-1.5 rounded-full bg-fg px-3.5 text-[13px] font-medium text-bg shadow-[0_8px_20px_-12px_rgba(0,0,0,0.6)] transition-colors hover:bg-fg/90 md:inline-flex",
                 pathname === "/resume" && "ring-2 ring-accent ring-offset-2 ring-offset-bg",
               )}
             >

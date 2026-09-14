@@ -35,8 +35,13 @@ export function SkillExplorer() {
         aria-pressed={active}
         onClick={() => setActiveTech(active ? null : label)}
         className={cn(
-          "group inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[13px] font-medium transition-colors",
-          active ? "border-accent bg-accent text-accent-fg" : "border-border bg-surface text-fg-2 hover:border-border-strong hover:text-fg",
+          "group inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[13px] font-medium transition-all duration-200",
+          active
+            ? "border-accent bg-accent text-accent-fg shadow-[0_8px_20px_-10px_var(--accent)]"
+            : n > 0
+              ? "border-border bg-surface text-fg-2 shadow-card-sm hover:-translate-y-px hover:border-accent/50 hover:text-fg"
+              : "border-border bg-surface/60 text-muted hover:border-border-strong hover:text-fg-2",
+          activeTech && !active && "opacity-70",
         )}
       >
         {label}
@@ -46,7 +51,7 @@ export function SkillExplorer() {
   };
 
   return (
-    <Section id="skills" className="border-t border-border">
+    <Section id="skills" atmosphere="ambient">
       <SectionHeading
         eyebrow="Technical ecosystem"
         title="Skills, connected to the work."
@@ -78,7 +83,7 @@ export function SkillExplorer() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: reduced ? 0 : 0.18 }}
-              className={cn("rounded-2xl border bg-surface p-5", activeTech ? "border-accent/40" : "border-border")}
+              className={cn("card relative overflow-hidden rounded-2xl p-5", activeTech && "card-active")}
             >
               {!activeTech ? (
                 <>
@@ -144,8 +149,8 @@ export function SkillExplorer() {
         </div>
       </div>
 
-      <div className="mt-14">
-        <h3 className="mb-1 text-lg font-semibold tracking-tight text-fg">Technology ↔ project graph</h3>
+      <div className="mt-16">
+        <h3 className="mb-1 text-xl font-semibold tracking-tight text-fg">Technology ↔ project graph</h3>
         <p className="mb-5 text-sm text-muted">Edges exist only where the resume lists the technology for that project.</p>
         <TechGraph />
       </div>

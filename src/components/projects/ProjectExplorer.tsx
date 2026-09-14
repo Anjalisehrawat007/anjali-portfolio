@@ -41,8 +41,10 @@ export function ProjectExplorer() {
                 aria-selected={active}
                 onClick={() => setCategory(f)}
                 className={cn(
-                  "relative shrink-0 rounded-full border px-3 py-1.5 text-[13px] font-medium transition-colors",
-                  active ? "border-fg bg-fg text-bg" : "border-border bg-surface text-fg-2 hover:border-border-strong hover:text-fg",
+                  "relative shrink-0 rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition-all duration-200",
+                  active
+                    ? "border-fg bg-fg text-bg shadow-[0_8px_20px_-12px_rgba(0,0,0,0.6)]"
+                    : "border-border bg-surface/80 text-fg-2 backdrop-blur-sm hover:border-border-strong hover:bg-surface hover:text-fg",
                 )}
               >
                 {f}
@@ -69,7 +71,7 @@ export function ProjectExplorer() {
       </div>
 
       {/* Grid */}
-      <motion.div layout={!reduced} className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <motion.div layout={!reduced} className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <AnimatePresence mode="popLayout" initial={false}>
           {visible.map((p, i) => (
             <ProjectCard key={p.slug} project={p} activeTech={activeTech} prominent={i === 0} index={i} />

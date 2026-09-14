@@ -1,28 +1,77 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { useInView } from "motion/react";
 import type { Metric } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { usePrefersReducedMotion } from "@/lib/hooks";
+
+/** Splits "15%" → { n: 15, suffix: "%" }; non-numeric values render verbatim. */
+function parseValue(v: string) {
+  const m = v.match(/^([\d.,]+)(.*)$/);
+  if (!m) return null;
+  return { n: parseFloat(m[1].replace(/,/g, "")), suffix: m[2] };
+}
+
+/** Counts a metric up when it enters the viewport (instant under reduced motion). */
+function useCountUp(target: number | null, inView: boolean, reduced: boolean, duration = 900) {
+  const [progress, setProgress] = useState(0);
+  const started = useRef(false);
+  useEffect(() => {
+    if (target === null || !inView || started.current || reduced) return;
+    started.current = true;
+    const t0 = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - t0) / duration);
+      setProgress(1 - Math.pow(1 - p, 3));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, inView, reduced, duration]);
+  if (target === null) return null;
+  if (reduced) return target; // no motion: show the final value immediately
+  return Math.round(target * progress * 10) / 10;
+}
 
 export function MetricCard({ metric, size = "md", className }: { metric: Metric; size?: "sm" | "md" | "lg"; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+  const reduced = usePrefersReducedMotion();
+  const parsed = parseValue(metric.value);
+  const n = useCountUp(parsed?.n ?? null, inView, reduced);
+  const display = parsed && n !== null ? `${Number.isInteger(parsed.n) ? Math.round(n) : n}${parsed.suffix}` : metric.value;
+
   return (
     <div
+      ref={ref}
       className={cn(
-        "group relative rounded-xl border border-border bg-surface p-4 transition-colors hover:border-border-strong",
-        size === "lg" && "p-6",
+        "card card-hover spotlight group relative overflow-hidden rounded-2xl p-4",
+        size === "lg" && "p-6 sm:p-7",
         className,
       )}
+      onMouseMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+      }}
     >
+      <div className="pointer-events-none absolute -left-8 -top-8 h-24 w-24 rounded-full bg-accent/10 blur-2xl transition-opacity group-hover:opacity-100" aria-hidden />
       <div
         className={cn(
-          "font-semibold tracking-tight text-fg tabular-nums",
-          size === "sm" && "text-2xl",
-          size === "md" && "text-3xl",
-          size === "lg" && "text-5xl",
+          "metric-number relative font-semibold",
+          size === "sm" && "text-[1.75rem]",
+          size === "md" && "text-4xl",
+          size === "lg" && "text-6xl sm:text-7xl",
         )}
       >
-        {metric.value}
+        {display}
       </div>
-      <div className="mt-1.5 text-sm font-medium text-fg-2">{metric.label}</div>
-      {metric.context && <div className="mt-0.5 text-xs text-muted">{metric.context}</div>}
-      <div className="absolute right-3 top-3 font-mono text-[10px] uppercase tracking-wider text-muted">
+      <div className={cn("relative mt-2 font-medium text-fg-2", size === "lg" ? "text-base" : "text-sm")}>{metric.label}</div>
+      {metric.context && <div className="relative mt-0.5 text-xs text-muted">{metric.context}</div>}
+      <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-md border border-border bg-surface-2/80 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted" title="Taken directly from the resume">
+        <span className="h-1 w-1 rounded-full bg-success" aria-hidden />
         {metric.source}
       </div>
     </div>

@@ -67,13 +67,13 @@ export function GitHubActivity() {
   const lastPush = repos.length ? repos.reduce((a, b) => (+new Date(b.pushedAt) > +new Date(a.pushedAt) ? b : a)) : null;
 
   return (
-    <Section id="github" className="border-t border-border">
+    <Section id="github" atmosphere="spot">
       <SectionHeading
         eyebrow="Engineering activity"
         title="Live from GitHub."
         description="Public repositories fetched from the GitHub API, cached hourly. Nothing here is hand-written — if the API is down, a dated snapshot of the same real data is shown."
         action={
-          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="inline-flex h-10 items-center gap-2 rounded-full border border-border bg-surface px-4 text-sm font-medium text-fg transition-colors hover:border-border-strong">
+          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="btn-icon-shift btn-icon-shift-up inline-flex h-10 items-center gap-2 rounded-full border border-border bg-surface px-4 text-sm font-medium text-fg shadow-card-sm transition-colors hover:border-border-strong hover:bg-surface-2">
             <Github className="h-4 w-4" /> @{profile.githubUser} <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
         }
@@ -95,7 +95,8 @@ export function GitHubActivity() {
       <div className="grid gap-4 lg:grid-cols-[300px_minmax(0,1fr)]">
         {/* Profile + languages + project links */}
         <div className="space-y-4">
-          <div className="rounded-2xl border border-border bg-surface p-5">
+          <div className="card relative overflow-hidden rounded-2xl p-5">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-accent-soft to-transparent" aria-hidden />
             {state.status === "loading" ? (
               <div className="animate-pulse space-y-3" aria-busy>
                 <div className="flex items-center gap-3"><div className="h-12 w-12 rounded-full bg-surface-2" /><div className="space-y-2"><div className="h-3 w-28 rounded bg-surface-2" /><div className="h-3 w-20 rounded bg-surface-2" /></div></div>
@@ -124,8 +125,8 @@ export function GitHubActivity() {
             )}
           </div>
 
-          <div className="rounded-2xl border border-border bg-surface p-5">
-            <h3 className="font-mono text-[11px] uppercase tracking-wider text-muted">Languages (own repos)</h3>
+          <div className="card rounded-2xl p-5">
+            <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">Languages (own repos)</h3>
             {state.status === "loading" ? (
               <div className="mt-3 h-2 animate-pulse rounded-full bg-surface-2" />
             ) : languages.length === 0 ? (
@@ -147,8 +148,8 @@ export function GitHubActivity() {
             )}
           </div>
 
-          <div className="rounded-2xl border border-border bg-surface p-5">
-            <h3 className="font-mono text-[11px] uppercase tracking-wider text-muted">Portfolio → repository</h3>
+          <div className="card rounded-2xl p-5">
+            <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">Portfolio → repository</h3>
             <ul className="mt-3 space-y-2">
               {featuredProjects.map((p) => {
                 const repoName = Object.entries(repoProjectMap).find(([, slug]) => slug === p.slug)?.[0];
@@ -157,7 +158,7 @@ export function GitHubActivity() {
                   <li key={p.slug} className="flex items-center justify-between gap-2 text-sm">
                     <Link href={`/projects/${p.slug}`} className="truncate text-fg-2 hover:text-fg">{p.shortName}</Link>
                     {p.links.github ? (
-                      <a href={p.links.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"><Link2 className="h-3 w-3" /> {repo?.name ?? p.links.github.split("/").filter(Boolean).pop()}</a>
+                      <a href={p.links.github} target="_blank" rel="noopener noreferrer" className="inline-flex max-w-[150px] items-center gap-1 text-xs font-medium text-accent hover:underline"><Link2 className="h-3 w-3 shrink-0" /> <span className="truncate">{repo?.name ?? p.links.github.split("/").filter(Boolean).pop()}</span></a>
                     ) : (
                       <span className="shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted">coming soon</span>
                     )}
@@ -169,7 +170,7 @@ export function GitHubActivity() {
         </div>
 
         {/* Repository list */}
-        <div className="rounded-2xl border border-border bg-surface">
+        <div className="card rounded-2xl">
           <div className="flex flex-col gap-3 border-b border-border p-4 sm:flex-row sm:items-center sm:justify-between">
             <label className="relative flex-1">
               <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden />
@@ -197,9 +198,9 @@ export function GitHubActivity() {
           </div>
 
           {state.status === "loading" ? (
-            <ul className="divide-y divide-border" aria-busy>
+            <ul className="grid gap-3 p-3 sm:grid-cols-2" aria-busy>
               {Array.from({ length: 6 }).map((_, i) => (
-                <li key={i} className="animate-pulse p-4"><div className="h-3.5 w-1/3 rounded bg-surface-2" /><div className="mt-2 h-3 w-2/3 rounded bg-surface-2" /></li>
+                <li key={i} className="animate-pulse rounded-xl border border-border p-4"><div className="h-3.5 w-1/3 rounded bg-surface-2" /><div className="mt-2 h-3 w-2/3 rounded bg-surface-2" /><div className="mt-4 h-3 w-1/2 rounded bg-surface-2" /></li>
               ))}
             </ul>
           ) : filtered.length === 0 ? (
@@ -207,29 +208,33 @@ export function GitHubActivity() {
               {repos.length === 0 ? "No public repositories found." : `No repositories match “${query}”.`}
             </div>
           ) : (
-            <ul className="divide-y divide-border">
+            <ul className="grid gap-3 p-3 sm:grid-cols-2">
               {filtered.map((r) => {
                 const linked = repoProjectMap[r.name] ? featuredProjects.find((p) => p.slug === repoProjectMap[r.name]) : undefined;
+                const color = LANG_COLORS[r.language ?? ""] ?? "var(--border-strong)";
                 return (
-                  <li key={r.fullName} className="group p-4 transition-colors hover:bg-surface-2/60">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <a href={r.url} target="_blank" rel="noopener noreferrer" className="inline-flex max-w-full items-center gap-1.5 text-sm font-semibold text-fg hover:underline">
-                          <span className="truncate">{r.name}</span>
-                          <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-muted opacity-0 transition-opacity group-hover:opacity-100" />
+                  <li key={r.fullName} className="card card-hover group relative flex flex-col overflow-hidden rounded-xl">
+                    <span className="absolute inset-x-0 top-0 h-0.5 opacity-70" style={{ background: color }} aria-hidden />
+                    <div className="flex flex-1 flex-col p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <a href={r.url} target="_blank" rel="noopener noreferrer" className="min-w-0 text-sm font-semibold text-fg after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">
+                          <span className="block truncate">{r.name}</span>
                         </a>
-                        <p className="mt-0.5 text-xs text-muted">{r.description ?? <span className="italic">No description</span>}</p>
+                        <div className="flex shrink-0 items-center gap-1.5">
+                          {r.fork && <Badge tone="mono">fork</Badge>}
+                          {linked && <Link href={`/projects/${linked.slug}`} className="relative z-10"><Badge tone="accent"><Link2 className="h-3 w-3" /> {linked.shortName}</Badge></Link>}
+                        </div>
                       </div>
-                      <div className="flex shrink-0 items-center gap-1.5">
-                        {r.fork && <Badge tone="mono">fork</Badge>}
-                        {linked && <Link href={`/projects/${linked.slug}`}><Badge tone="accent"><Link2 className="h-3 w-3" /> {linked.shortName}</Badge></Link>}
+                      <p className="mt-1 line-clamp-2 text-xs text-muted">{r.description ?? <span className="italic">No description</span>}</p>
+                      <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-3 text-xs text-muted">
+                        {r.language && <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: color }} />{r.language}</span>}
+                        <span className="flex items-center gap-1"><Star className="h-3 w-3" /> {r.stars}</span>
+                        <span className="flex items-center gap-1"><GitFork className="h-3 w-3" /> {r.forks}</span>
+                        <span>pushed {relativeTime(r.pushedAt)}</span>
+                        <span className="ml-auto inline-flex items-center gap-1 font-medium text-fg-2 opacity-0 transition-opacity group-hover:opacity-100">
+                          Open <ArrowUpRight className="h-3 w-3" />
+                        </span>
                       </div>
-                    </div>
-                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
-                      {r.language && <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: LANG_COLORS[r.language] ?? "var(--muted)" }} />{r.language}</span>}
-                      <span className="flex items-center gap-1"><Star className="h-3 w-3" /> {r.stars}</span>
-                      <span className="flex items-center gap-1"><GitFork className="h-3 w-3" /> {r.forks}</span>
-                      <span>pushed {relativeTime(r.pushedAt)}</span>
                     </div>
                   </li>
                 );
