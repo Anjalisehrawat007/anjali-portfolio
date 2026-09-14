@@ -157,7 +157,7 @@ export function GitHubActivity() {
                   <li key={p.slug} className="flex items-center justify-between gap-2 text-sm">
                     <Link href={`/projects/${p.slug}`} className="truncate text-fg-2 hover:text-fg">{p.shortName}</Link>
                     {p.links.github ? (
-                      <a href={p.links.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"><Link2 className="h-3 w-3" /> {repo?.name ?? "repo"}</a>
+                      <a href={p.links.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"><Link2 className="h-3 w-3" /> {repo?.name ?? p.links.github.split("/").filter(Boolean).pop()}</a>
                     ) : (
                       <span className="shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted">coming soon</span>
                     )}

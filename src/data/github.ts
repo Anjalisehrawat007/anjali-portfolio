@@ -8,7 +8,10 @@ import type { GitHubRepo } from "@/lib/types";
  * the project repositories are public — add entries like:
  *   "sigil": "sigil",
  */
-export const repoProjectMap: Record<string, string> = {};
+export const repoProjectMap: Record<string, string> = {
+  "Predicting-Power-Grid-Failures-with-Deep-Learning": "power-grid-failure-prediction",
+  "shoulder-rom-app": "shouldermotion-ai",
+};
 
 /**
  * Snapshot of real public repositories, used only when the live GitHub API is

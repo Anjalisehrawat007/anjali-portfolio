@@ -155,9 +155,12 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
           <CaseSection id="demo" title="Demo">
             {project.links.demo ? (
-              <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 items-center gap-2 rounded-full bg-fg px-5 text-sm font-medium text-bg hover:bg-fg/90">
-                <Globe className="h-4 w-4" /> Open live demo <ArrowUpRight className="h-3.5 w-3.5" />
+              <div>
+              <a href={project.links.demo} target="_blank" rel="noopener noreferrer" aria-label={`Open the live demo of ${project.shortName} (opens in a new tab)`} className="inline-flex h-11 items-center gap-2 rounded-full bg-fg px-5 text-sm font-medium text-bg transition-colors hover:bg-fg/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
+                <Globe className="h-4 w-4" aria-hidden /> Live Demo <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
               </a>
+              <p className="mt-3 font-mono text-xs text-muted">{project.links.demo}</p>
+              </div>
             ) : (
               <Placeholder label="Demo coming soon" hint="No public deployment yet. Set `links.demo` to enable the button — the layout is already in place." />
             )}
@@ -176,9 +179,12 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
           <CaseSection id="github" title="GitHub">
             {project.links.github ? (
-              <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 items-center gap-2 rounded-full border border-border bg-surface px-5 text-sm font-medium text-fg hover:border-border-strong">
-                <Github className="h-4 w-4" /> View repository <ArrowUpRight className="h-3.5 w-3.5" />
+              <div>
+              <a href={project.links.github} target="_blank" rel="noopener noreferrer" aria-label={`View the ${project.shortName} repository on GitHub (opens in a new tab)`} className="inline-flex h-11 items-center gap-2 rounded-full border border-border bg-surface px-5 text-sm font-medium text-fg transition-colors hover:border-border-strong hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
+                <Github className="h-4 w-4" aria-hidden /> View on GitHub <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
               </a>
+              <p className="mt-3 font-mono text-xs text-muted">{project.links.github}</p>
+              </div>
             ) : (
               <Placeholder label="Repository coming soon" hint="Set `links.github` in src/data/projects.ts once the repository is public. Public activity is visible on the GitHub profile." />
             )}

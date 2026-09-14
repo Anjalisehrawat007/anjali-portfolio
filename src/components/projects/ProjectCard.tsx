@@ -95,7 +95,7 @@ export function ProjectCard({ project, activeTech, prominent, index }: Props) {
                 <dd className="mt-0.5 leading-snug text-fg-2">
                   {metric ? `${metric.value} ${metric.label.toLowerCase()}` : "Interactive architecture"}
                   {project.links.github ? " · GitHub" : ""}
-                  {project.links.demo ? " · Live demo" : ""}
+                  {project.links.demo ? " · Live Demo" : ""}
                 </dd>
               </div>
             </dl>

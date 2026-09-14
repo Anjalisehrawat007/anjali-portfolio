@@ -304,7 +304,7 @@ export const projects: Project[] = [
         { from: "verification", to: "zk" },
       ],
     },
-    links: { demo: null, github: null },
+    links: { demo: "https://sigil-ssi-web.vercel.app/", github: null },
     media: { screenshots: [], video: null, architectureImage: null },
     readme: null,
     scopeNotes: [
@@ -429,7 +429,7 @@ export const projects: Project[] = [
         { from: "dmqe", to: "analytics" },
       ],
     },
-    links: { demo: null, github: null },
+    links: { demo: "https://shoulder-rom-app.vercel.app/", github: "https://github.com/Anjalisehrawat007/shoulder-rom-app" },
     media: { screenshots: [], video: null, architectureImage: null },
     readme: null,
     scopeNotes: [
@@ -558,7 +558,7 @@ export const projects: Project[] = [
         { from: "detection", to: "prediction" },
       ],
     },
-    links: { demo: null, github: null },
+    links: { demo: null, github: "https://github.com/Anjalisehrawat007/Predicting-Power-Grid-Failures-with-Deep-Learning" },
     media: { screenshots: [], video: null, architectureImage: null },
     readme: null,
     scopeNotes: [
