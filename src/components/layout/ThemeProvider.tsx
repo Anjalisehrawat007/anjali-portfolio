@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore, type ReactNode } from "react";
 import { useMediaQuery } from "@/lib/hooks";
+import { THEME_STORAGE_KEY as STORAGE_KEY } from "@/lib/theme";
 
 type Theme = "light" | "dark" | "system";
 interface ThemeCtx {
@@ -12,10 +13,6 @@ interface ThemeCtx {
 }
 
 const Ctx = createContext<ThemeCtx | null>(null);
-const STORAGE_KEY = "theme";
-
-/** Inline script that applies the stored theme before first paint (no flash). */
-export const themeInitScript = `(function(){try{var t=localStorage.getItem('${STORAGE_KEY}');var d=t==='dark'||((!t||t==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();`;
 
 /* Tiny external store over localStorage so React reads it via useSyncExternalStore. */
 const listeners = new Set<() => void>();
