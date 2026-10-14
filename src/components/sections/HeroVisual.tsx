@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
  */
 const STAGES = [
   { id: "input", label: "Input", icon: FileInput, items: ["Symptoms", "Medical scans", "Sensor streams", "Movement"] },
-  { id: "intelligence", label: "Intelligence", icon: BrainCircuit, items: ["BioBERT", "CNN", "LSTM", "MediaPipe"] },
+  { id: "intelligence", label: "Intelligence", icon: BrainCircuit, items: ["BioBERT", "CNN", "GRU + Attn", "MediaPipe"] },
   { id: "processing", label: "Processing", icon: Cpu, items: ["FastAPI", "Flask", "Next.js"] },
   { id: "system", label: "System", icon: Layers, items: ["Ethereum", "IPFS", "Docker", "AWS/GCP"] },
   { id: "output", label: "Output", icon: Target, items: ["Screening", "Predictions", "Analytics", "Credentials"] },

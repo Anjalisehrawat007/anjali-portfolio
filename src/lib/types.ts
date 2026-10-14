@@ -22,8 +22,8 @@ export interface Metric {
   label: string;
   /** Short qualifier shown under the label. */
   context?: string;
-  /** Where the number comes from. Only "resume" today; keeps provenance explicit. */
-  source: "resume";
+  /** Where the number comes from: the resume, or the project's own measured evaluation. */
+  source: "resume" | "project";
 }
 
 export type NodeKind =

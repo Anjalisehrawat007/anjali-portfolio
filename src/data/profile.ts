@@ -23,7 +23,7 @@ export const profile = {
   },
   about: [
     "Computer Science undergraduate at VIT (CGPA 8.65) specializing in AI/ML and full-stack engineering. I build ML-powered applications end-to-end — data and model work in Python, PyTorch and Hugging Face Transformers, product surfaces in MERN and Next.js, and serving layers in FastAPI and Flask.",
-    "My projects sit where applied AI meets real systems: medical screening with BioBERT and CNNs, markerless motion analysis with MediaPipe, LSTM-based failure forecasting on multivariate sensor streams, and a self-sovereign identity platform on Ethereum with WebAuthn, Merkle batching and zero-knowledge proofs.",
+    "My projects sit where applied AI meets real systems: medical screening with BioBERT and CNNs, markerless motion analysis with MediaPipe, calibrated GRU + attention early warning on real power-transformer sensor streams, and a self-sovereign identity platform on Ethereum with WebAuthn, Merkle batching and zero-knowledge proofs.",
     "I'm grounded in data structures, algorithms, operating systems, networks and compiler design, and ship with production tooling — Docker, Git, AWS/GCP.",
   ],
 } as const;

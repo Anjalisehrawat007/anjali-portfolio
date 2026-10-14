@@ -11,7 +11,7 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], dis
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
 
 const description =
-  "Software developer specialising in AI/ML and full-stack engineering. Interactive case studies of RareCare, Sigil, ShoulderMotion AI and LSTM-based power-grid failure prediction.";
+  "Software developer specialising in AI/ML and full-stack engineering. Interactive case studies of RareCare, Sigil, ShoulderMotion AI and SmartGrid AI, a calibrated early-warning system for power-transformer failures.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),

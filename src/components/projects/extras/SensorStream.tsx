@@ -4,13 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { useMounted, usePrefersReducedMotion } from "@/lib/hooks";
 
 /**
- * Illustrative multivariate stream → sliding window → LSTM score.
+ * Illustrative multivariate stream → 12-hour sliding window → GRU + attention risk score.
  * The signal is synthetic (deterministic noise) — it is NOT project data.
  */
 const CHANNELS = [
-  { id: "weather", label: "Weather", color: "var(--muted)" },
-  { id: "demand", label: "Demand", color: "var(--fg-2)" },
-  { id: "temperature", label: "Transformer temp", color: "var(--accent)" },
+  { id: "load", label: "Useful load", color: "var(--muted)" },
+  { id: "reactive", label: "Reactive load", color: "var(--fg-2)" },
+  { id: "temperature", label: "Oil temperature", color: "var(--accent)" },
 ];
 const W = 640, H = 160, N = 160;
 
@@ -51,7 +51,7 @@ export function SensorStream() {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="font-mono text-[11px] uppercase tracking-wider text-accent">Streaming inference (illustrative)</p>
-          <p className="mt-1 text-sm text-fg-2">Three channels arrive continuously; the LSTM scores the latest window. Synthetic signal — not project data.</p>
+          <p className="mt-1 text-sm text-fg-2">Channels arrive every 15 minutes; the GRU + attention model scores the latest 12-hour window. Synthetic signal — not project data. Try the real engine in the live demo.</p>
         </div>
         <div className="flex gap-3 text-[11px]">
           {CHANNELS.map((c) => <span key={c.id} className="flex items-center gap-1.5 text-muted"><span className="h-0.5 w-4" style={{ background: c.color }} />{c.label}</span>)}
@@ -65,9 +65,9 @@ export function SensorStream() {
           <text x={winStart + 6} y={14} fontSize={10} fontFamily="var(--font-mono)" fill="var(--accent)">window</text>
         </svg>
         <div className="flex flex-col justify-between rounded-lg border border-border p-3">
-          <div className="font-mono text-[10px] uppercase tracking-wider text-muted">LSTM output</div>
+          <div className="font-mono text-[10px] uppercase tracking-wider text-muted">Model output</div>
           <div className="text-3xl font-semibold tabular-nums text-fg">{mounted ? score.toFixed(2) : "—"}</div>
-          <div className="text-[11px] text-muted">failure-signature score for the current window (illustrative)</div>
+          <div className="text-[11px] text-muted">risk score for the current window (illustrative)</div>
         </div>
       </div>
     </div>

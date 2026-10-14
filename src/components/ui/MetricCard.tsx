@@ -6,11 +6,12 @@ import type { Metric } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { usePrefersReducedMotion } from "@/lib/hooks";
 
-/** Splits "15%" → { n: 15, suffix: "%" }; non-numeric values render verbatim. */
+/** Splits "15%" → { n: 15, decimals: 0, suffix: "%" }; non-numeric values render verbatim. */
 function parseValue(v: string) {
   const m = v.match(/^([\d.,]+)(.*)$/);
   if (!m) return null;
-  return { n: parseFloat(m[1].replace(/,/g, "")), suffix: m[2] };
+  const num = m[1].replace(/,/g, "");
+  return { n: parseFloat(num), decimals: (num.split(".")[1] ?? "").length, suffix: m[2] };
 }
 
 /** Counts a metric up when it enters the viewport (instant under reduced motion). */
@@ -32,7 +33,7 @@ function useCountUp(target: number | null, inView: boolean, reduced: boolean, du
   }, [target, inView, reduced, duration]);
   if (target === null) return null;
   if (reduced) return target; // no motion: show the final value immediately
-  return Math.round(target * progress * 10) / 10;
+  return target * progress;
 }
 
 export function MetricCard({ metric, size = "md", className }: { metric: Metric; size?: "sm" | "md" | "lg"; className?: string }) {
@@ -41,7 +42,8 @@ export function MetricCard({ metric, size = "md", className }: { metric: Metric;
   const reduced = usePrefersReducedMotion();
   const parsed = parseValue(metric.value);
   const n = useCountUp(parsed?.n ?? null, inView, reduced);
-  const display = parsed && n !== null ? `${Number.isInteger(parsed.n) ? Math.round(n) : n}${parsed.suffix}` : metric.value;
+  // keep the value's own precision ("0.326" must not end as "0.3")
+  const display = parsed && n !== null ? `${n.toFixed(parsed.decimals)}${parsed.suffix}` : metric.value;
 
   return (
     <div
@@ -70,7 +72,7 @@ export function MetricCard({ metric, size = "md", className }: { metric: Metric;
       </div>
       <div className={cn("relative mt-2 font-medium text-fg-2", size === "lg" ? "text-base" : "text-sm")}>{metric.label}</div>
       {metric.context && <div className="relative mt-0.5 text-xs text-muted">{metric.context}</div>}
-      <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-md border border-border bg-surface-2/80 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted" title="Taken directly from the resume">
+      <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-md border border-border bg-surface-2/80 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted" title={metric.source === "resume" ? "Taken directly from the resume" : "Measured in the project's own evaluation (held-out test period)"}>
         <span className="h-1 w-1 rounded-full bg-success" aria-hidden />
         {metric.source}
       </div>

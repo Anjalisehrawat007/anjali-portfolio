@@ -30,7 +30,7 @@ export const philosophy = [
   {
     id: "real-problems",
     title: "Real signals, real stakes.",
-    body: "Multivariate sensor streams to predict grid failures before a blackout. Postoperative shoulder recovery. Stigma-associated diseases where people delay seeking help. The problems pick the architecture, not the other way around.",
+    body: "Real transformer sensor streams for early warning of failures. Postoperative shoulder recovery. Stigma-associated diseases where people delay seeking help. The problems pick the architecture, not the other way around.",
     evidence: ["power-grid-failure-prediction", "shouldermotion-ai", "rarecare"],
   },
   {

@@ -15,7 +15,7 @@ export default function OG() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div style={{ fontSize: 68, fontWeight: 700, letterSpacing: -2, lineHeight: 1.05 }}>{profile.headline}</div>
-          <div style={{ fontSize: 28, color: "#9a9a9a" }}>AI/ML + Full-Stack · BioBERT · CNN · LSTM · MediaPipe · Next.js · Ethereum</div>
+          <div style={{ fontSize: 28, color: "#9a9a9a" }}>AI/ML + Full-Stack · BioBERT · CNN · GRU + Attention · MediaPipe · Next.js · Ethereum</div>
         </div>
         <div style={{ display: "flex", gap: 32, fontSize: 22, color: "#8b8cf8" }}>
           <span>RareCare</span><span>Sigil</span><span>ShoulderMotion AI</span><span>Power Grid Failure Prediction</span>
