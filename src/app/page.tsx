@@ -1,5 +1,6 @@
 import { ExplorerProvider } from "@/components/projects/ExplorerContext";
 import { Hero } from "@/components/sections/Hero";
+import { LiveModel } from "@/components/sections/LiveModel";
 import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
 import { ExperienceTimeline } from "@/components/sections/ExperienceTimeline";
 import { SkillExplorer } from "@/components/sections/SkillExplorer";
@@ -14,6 +15,7 @@ export default function HomePage() {
     <ExplorerProvider>
       <Hero />
       <FeaturedProjects />
+      <LiveModel />
       <ExperienceTimeline />
       <SkillExplorer />
       <GitHubActivity />

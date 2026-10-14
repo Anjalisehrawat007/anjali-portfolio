@@ -4,12 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { FileText, Menu, Moon, Sun, X } from "lucide-react";
+import { FileText, Menu, Moon, Search, Sun, X } from "lucide-react";
 import { Github, Linkedin } from "@/components/ui/BrandIcons";
 import { profile } from "@/data/profile";
 import { useActiveSection, useMounted, usePrefersReducedMotion, useScrollProgress, useScrolled } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import { useTheme } from "./ThemeProvider";
+import { openCommandPalette } from "./CommandPalette";
 
 export const SECTIONS = [
   { id: "home", label: "Home" },
@@ -96,6 +97,11 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-1.5">
+            <button type="button" onClick={openCommandPalette} aria-label="Search (Command K)" aria-keyshortcuts="Meta+K Control+K"
+              className="inline-flex h-8 items-center gap-2 rounded-full border border-border px-2.5 text-[12.5px] text-muted transition-colors hover:border-border-strong hover:text-fg">
+              <Search className="h-3.5 w-3.5" /><span className="hidden lg:inline">Search</span>
+              <kbd className="hidden rounded border border-border px-1 font-mono text-[10px] lg:inline">⌘K</kbd>
+            </button>
             <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hidden rounded-md p-2 text-muted transition-colors hover:bg-surface-2 hover:text-fg sm:inline-flex">
               <Github className="h-4 w-4" />
             </a>

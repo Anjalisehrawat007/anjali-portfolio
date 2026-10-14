@@ -9,6 +9,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { usePrefersReducedMotion } from "@/lib/hooks";
 import { HeroVisual } from "./HeroVisual";
 import { EngineeringSignals } from "./EngineeringSignals";
+import { ProofStrip } from "./ProofStrip";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -84,7 +85,11 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <motion.div {...fade(0.3)} className="mt-20 sm:mt-24">
+        <motion.div {...fade(0.24)}>
+          <ProofStrip />
+        </motion.div>
+
+        <motion.div {...fade(0.3)} className="mt-16 sm:mt-20">
           <div className="mb-4 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
             <span className="inline-flex items-center gap-2"><span className="h-px w-6 bg-border-strong" aria-hidden />How the systems I build are shaped</span>
             <span className="hidden sm:inline">hover a stage</span>

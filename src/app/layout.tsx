@@ -5,6 +5,7 @@ import { profile } from "@/data/profile";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { themeInitScript } from "@/lib/theme";
 import { Navbar } from "@/components/layout/Navbar";
+import { CommandPalette } from "@/components/layout/CommandPalette";
 import { Footer } from "@/components/layout/Footer";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
@@ -70,6 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           <main id="main" className="flex-1">{children}</main>
           <Footer />
+          <CommandPalette />
         </ThemeProvider>
       </body>
     </html>
