@@ -12,6 +12,7 @@ export const repoProjectMap: Record<string, string> = {
   "predictive-maintainance-for-power-grid": "power-grid-failure-prediction",
   "shoulder-rom-app": "shouldermotion-ai",
   rarecare: "rarecare",
+  "SIGIL-SSI": "sigil",
 };
 
 /**

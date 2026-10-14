@@ -304,7 +304,7 @@ export const projects: Project[] = [
         { from: "verification", to: "zk" },
       ],
     },
-    links: { demo: "https://sigil-ssi-web.vercel.app/", github: null },
+    links: { demo: "https://sigil-ssi-web.vercel.app/", github: "https://github.com/Anjalisehrawat007/SIGIL-SSI" },
     media: { screenshots: [], video: null, architectureImage: null },
     readme: null,
     scopeNotes: [
