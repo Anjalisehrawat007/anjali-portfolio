@@ -558,7 +558,7 @@ export const projects: Project[] = [
         { from: "detection", to: "prediction" },
       ],
     },
-    links: { demo: null, github: "https://github.com/Anjalisehrawat007/predictive-maintainance-for-power-grid" },
+    links: { demo: "https://predictive-maintenance-power-grid.vercel.app", github: "https://github.com/Anjalisehrawat007/predictive-maintainance-for-power-grid" },
     media: { screenshots: [], video: null, architectureImage: null },
     readme: null,
     scopeNotes: [
