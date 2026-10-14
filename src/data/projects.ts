@@ -579,6 +579,14 @@ export const projects: Project[] = [
       "This is a decision-support research prototype, not deployed on a real grid; it does not claim to prevent outages.",
       "Precision at the chosen operating point is 0.17 (0.25 false alarms per transformer-day), and transfer between the two transformers is weak.",
     ],
+    codeTour: [
+      { path: "tests/test_temporal_integrity.py", what: "Leakage tests: features ignore the future, fits are training-only, model selection ignores test data." },
+      { path: "backend/intelligence.py", what: "The streaming engine: newest-row features, ONNX/PyTorch scorers, calibration, confidence, attribution, alert policy." },
+      { path: "src/features/engineering.py", what: "Causal feature engineering, including the NumPy newest-row path that cut latency 14.3 → 5.5 ms." },
+      { path: "reports/model_selection_protocol.md", what: "Pre-declared model-selection protocol (3 seeds × 5 fresh simulations) and why GRU + attention was kept." },
+      { path: "tests/test_onnx_engine.py", what: "Proves the PyTorch-free serverless engine reproduces the reference engine's scores, alerts and lead times." },
+      { path: "src/scenario/baseline.py", what: "Synthetic baseline for the public demo, fitted from aggregate training statistics only (no dataset rows)." },
+    ],
   },
 ];
 

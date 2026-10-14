@@ -190,6 +190,25 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
                 <Github className="h-4 w-4" aria-hidden /> View on GitHub <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
               </a>
               <p className="mt-3 font-mono text-xs text-muted">{project.links.github}</p>
+              {project.codeTour && project.codeTour.length > 0 && (
+                <div className="mt-6">
+                  <h3 className="font-mono text-[11px] uppercase tracking-wider text-accent">Start reading the code here</h3>
+                  <ol className="mt-3 space-y-2">
+                    {project.codeTour.map((c, i) => (
+                      <li key={c.path}>
+                        <a href={`${project.links.github}/blob/main/${c.path}`} target="_blank" rel="noopener noreferrer"
+                          className="card card-hover group flex gap-3 rounded-xl px-4 py-3">
+                          <span className="font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
+                          <span className="min-w-0 flex-1">
+                            <span className="flex items-center gap-1 font-mono text-[13px] text-fg">{c.path}<ArrowUpRight className="h-3 w-3 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden /></span>
+                            <span className="mt-0.5 block text-sm text-muted">{c.what}</span>
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
               </div>
             ) : (
               <Placeholder label="Repository coming soon" hint="Set `links.github` in src/data/projects.ts once the repository is public. Public activity is visible on the GitHub profile." />

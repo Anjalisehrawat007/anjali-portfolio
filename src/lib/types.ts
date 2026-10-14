@@ -108,6 +108,8 @@ export interface Project {
   readme: string | null;
   /** Explicit scope boundaries so the site never over-claims. */
   scopeNotes: string[];
+  /** Optional guided tour of the repository: the files a reviewer should open first (paths must exist). */
+  codeTour?: { path: string; what: string }[];
 }
 
 export interface Experience {

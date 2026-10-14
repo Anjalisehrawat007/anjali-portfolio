@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LiveModelDemo } from "@/components/demo/LiveModelDemo";
+import { DeploymentStatus } from "@/components/demo/DeploymentStatus";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -31,6 +32,7 @@ export function LiveModel() {
           </dl>
         </Reveal>
       </div>
+      <DeploymentStatus />
     </Section>
   );
 }
