@@ -59,10 +59,15 @@ export default function ResumePage() {
           <Card title="Projects">
             <ul className="space-y-2">
               {featuredProjects.map((p) => (
-                <li key={p.slug}>
-                  <Link href={`/projects/${p.slug}`} className="group flex items-center justify-between text-sm text-fg-2 hover:text-fg">
+                <li key={p.slug} className="flex items-center justify-between gap-2">
+                  <Link href={`/projects/${p.slug}`} className="group flex items-center gap-1.5 text-sm text-fg-2 hover:text-fg">
                     {p.shortName} <ArrowRight className="h-3.5 w-3.5 text-muted transition-transform group-hover:translate-x-0.5" />
                   </Link>
+                  {p.links.github && (
+                    <a href={p.links.github} target="_blank" rel="noopener noreferrer" className="inline-flex shrink-0 items-center gap-1 text-xs text-muted hover:text-fg">
+                      GitHub <ArrowUpRight className="h-3 w-3" />
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

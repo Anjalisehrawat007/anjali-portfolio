@@ -9,8 +9,9 @@ import type { GitHubRepo } from "@/lib/types";
  *   "sigil": "sigil",
  */
 export const repoProjectMap: Record<string, string> = {
-  "Predicting-Power-Grid-Failures-with-Deep-Learning": "power-grid-failure-prediction",
+  "predictive-maintainance-for-power-grid": "power-grid-failure-prediction",
   "shoulder-rom-app": "shouldermotion-ai",
+  rarecare: "rarecare",
 };
 
 /**

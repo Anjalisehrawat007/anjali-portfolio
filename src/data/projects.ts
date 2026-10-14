@@ -143,7 +143,7 @@ export const projects: Project[] = [
         { from: "assistance", to: "serving", label: "served via" },
       ],
     },
-    links: { demo: null, github: null, huggingface: null },
+    links: { demo: null, github: "https://github.com/Anjalisehrawat007/rarecare", huggingface: null },
     media: { screenshots: [], video: null, architectureImage: null },
     readme: null,
     scopeNotes: [
@@ -558,7 +558,7 @@ export const projects: Project[] = [
         { from: "detection", to: "prediction" },
       ],
     },
-    links: { demo: null, github: "https://github.com/Anjalisehrawat007/Predicting-Power-Grid-Failures-with-Deep-Learning" },
+    links: { demo: null, github: "https://github.com/Anjalisehrawat007/predictive-maintainance-for-power-grid" },
     media: { screenshots: [], video: null, architectureImage: null },
     readme: null,
     scopeNotes: [
